@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Str;
 
-class SectionModel extends Model
+class SoalExerciseModel extends Model
 {
     use HasFactory;
     protected $primaryKey = 'id_exercise';
@@ -15,9 +15,14 @@ class SectionModel extends Model
 
     public $incrementing = true;
 
+    // Move the relationship method inside the model class
+    public function section()
+    {
+        return $this->belongsTo(SectionModel::class, 'id_section');
+    }
     protected $fillable = [
         'id_exercise',
-        'id_pelatihan',
+       'id_section',
         'soal',
         'pilgan1',
         'pilgan2',
@@ -27,5 +32,4 @@ class SectionModel extends Model
         'kunci_jawaban',
         'status',
     ];
-
 }

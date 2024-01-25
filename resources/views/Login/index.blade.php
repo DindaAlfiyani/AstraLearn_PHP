@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<!--let table = new DataTable('#myTable');-->
 <head>
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
@@ -25,32 +26,35 @@
   <link href="{{ asset('assets/vendor/quill/quill.bubble.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/remixicon/remixicon.css') }}" rel="stylesheet">
   <link href="{{ asset('assets/vendor/simple-datatables/style.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css">
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+  <!-- <link rel="stylesheet" href="//cdn.datatables.net/1.13.7/css/jquery.dataTables.min.css.css">-->
+
 
   <style>
-body {
-      padding-top: 70px; /* Adjust the value based on your header height */
-      background-color: #C7E3F8;
-    }
+        body {
+              padding-top: 70px; /* Adjust the value based on your header height */
+              background-color: #C7E3F8;
+            }
 
-    .login-container {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
+            .login-container {
+              min-height: 100vh;
+              display: flex;
+              align-items: center;
+              justify-content: center;
+            }
 
-    .login-container .container {
-      width: 80%; /* Adjust the width of the container */
-    }
+            .login-container .container {
+              width: 80%; /* Adjust the width of the container */
+            }
 
-    .login-container form {
-        max-width: 430px; /* Adjust the maximum width of the form */
-        width: 100%;
-        margin: auto;
-        }
+            .login-container form {
+                max-width: 430px; /* Adjust the maximum width of the form */
+                width: 100%;
+                margin: auto;
+                }
 
   </style>
   
@@ -80,9 +84,12 @@ body {
 
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-flex align-items-center"><a class="nav-link nav-icon" asp-controller="Home" asp-action="CaraBelajar">Cara Belajar</a></li>
-                <li class="nav-item d-flex align-items-center"><a class="nav-link nav-icon" asp-controller="Home" asp-action="Kelas">Kelas</a></li>
-                <li class="nav-item d-flex align-items-center"><a class="nav-link nav-icon" asp-controller="Home" asp-action="CaraDapatSertifikat">Cara Dapat Sertifikat</a></li>
+            <li class="nav-item d-flex align-items-center"><a class="nav-link nav-icon"
+                        href="">Cara Belajar</a></li>
+                <li class="nav-item d-flex align-items-center"><a class="nav-link nav-icon"
+                        href="">Kelas</a></li>
+                <li class="nav-item d-flex align-items-center"><a class="nav-link nav-icon"
+                        href="">Cara Dapat Sertifikat</a></li>
 
                 <li class="nav-item d-block d-lg-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
@@ -98,6 +105,7 @@ body {
         </nav><!-- End Icons Navigation -->
 
     </header><!-- End Header -->
+   
     <main>
     <div class="container-fluid ps-md-0">
       <div class="row g-0 justify-content-center">
@@ -112,25 +120,32 @@ body {
                       <p>Masuk untuk mengakses kelas kamu di AstraLearn</p>
                     </div>
                     <!-- Sign In Form -->
-                    <form class="row g-3 needs-validation" method="post" asp-action="Login" asp-controller="Home">
-                      <div class="form-floating mb-3">
-                        <input type="text" name="username" class="form-control" id="yourUsername" placeholder="Username" required>
-                        <label for="yourUsername">Username</label>
-                      </div>
-                      <div class="form-floating mb-3">
-                        <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Password" required>
-                        <label for="yourPassword">Password</label>
-                      </div>
-                      <div class="form-check mb-3">
-                        <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
-                        <label class="form-check-label" for="rememberPasswordCheck">
-                          Remember password
-                        </label>
-                      </div>
-                      <div class="d-grid">
-                        <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" style="font-family:'Poppins', sans-serif;">Masuk</button>
-                      </div>
-                    </form>
+                   <form class="row g-3 needs validation" action="{{ route('actionlogin') }}" method="post">
+                    @csrf
+                            <hr>
+                            @if(session('error'))
+                            <div class="alert-danger">
+                                <b>Opps!</b> {{session('error')}}
+                            </div>
+                            @endif
+                            <div class="form-group">
+                                <label>Username</label>
+                                <input type="text" name="username" class="form-control" placeholder="username" required="">
+                            </div>
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" name="password" class="form-control" placeholder="password" required="">
+                            </div>
+                                <div class="form-check mb-3">
+                            <input class="form-check-input" type="checkbox" value="" id="rememberPasswordCheck">
+                            <label class="form-check-label" for="rememberPasswordCheck">
+                              Remember password 
+                             </label>
+                            </div>
+                            <div class="d-grid">
+                              <button class="btn btn-lg btn-primary btn-login text-uppercase fw-bold mb-2" type="submit" style="font-family:'Poppins', sans-serif;">Masuk</button>
+                            </div>
+                   </form>
                   </div>
                 </div>
               </div>
@@ -153,9 +168,11 @@ body {
     <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script>
 
+     <!-- Swiper JS -->
+     <script src="https://unpkg.com/swiper/swiper-bundle.min.js"></script>
+
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
-</body>
-
+      </body>
 </html>

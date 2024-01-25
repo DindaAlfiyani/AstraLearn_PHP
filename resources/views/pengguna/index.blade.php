@@ -24,8 +24,8 @@
                         <thead class="thead-dark text-center">
                             <tr>
                                 <th>Username</th>
-                                <th>Nama Lengkap</th>
-                                <th>Hak Akses</th>
+                                <th>Nama</th>
+                                <th>Role</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -33,8 +33,8 @@
                             @forelse ($pengguna as $item)
                             <tr class="text-center">
                                 <td>{{$item['username']}}</td>
-                                <td>{{$item['nama_lengkap']}}</td>
-                                <td>{{$item['hak_akses']}}</td>
+                                <td>{{$item['nama']}}</td>
+                                <td>{{$item['role']}}</td>
                                 <td>
                                 <a href="{{ route('pengguna.edit',['id'=> $item->id_pengguna]) }}"><i class="bi bi-exclamation-triangle"></i></a>
                                 <a href="{{ route('pengguna.delete',['id'=> $item->id_pengguna]) }}"><i class="bi bi-trash"></i></a>
@@ -62,15 +62,15 @@
                                                     <label>Nama Lengkap</label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <label>: {{$item['nama_lengkap']}}</label>
+                                                    <label>: {{$item['nama']}}</label>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="col-2">
-                                                    <label>Hak Akses</label>
+                                                    <label>Role</label>
                                                 </div>
                                                 <div class="col-10">
-                                                    <label>: {{$item['hak_akses']}}</label>
+                                                    <label>: {{$item['role']}}</label>
                                                 </div>
                                             </div>
                                         </div>

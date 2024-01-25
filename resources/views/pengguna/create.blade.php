@@ -29,16 +29,16 @@
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="nama_lengkap">Nama Lengkap</label>
-                            <input type="text" id="nama_lengkap" name="nama_lengkap" value="{{ old('nama_lengkap') }}" class="form-control" disabled><br>
-                            @error('nama_lengkap')
+                            <label for="nama">Nama Lengkap</label>
+                            <input type="text" id="nama" name="nama" value="{{ old('nama') }}" class="form-control" disabled><br>
+                            @error('nama')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>
                         <div class="form-group">
-                            <label for="hak_akses">Hak Akses</label>
-                            <input type="text" id="hak_akses" name="hak_akses" value="{{ old('hak_akses') }}" class="form-control"><br>
-                            @error('hak_akses')
+                            <label for="role">Role</label>
+                            <input type="text" id="role" name="role" value="{{ old('role') }}" class="form-control"><br>
+                            @error('role')
                             <span class="text-danger">{{ $message }}</span>
                             @enderror
                         </div>

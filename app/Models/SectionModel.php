@@ -15,6 +15,12 @@ class SectionModel extends Model
 
     public $incrementing = true;
 
+    protected $casts = [
+        'id_section' => 'integer',
+        'id_pelatihan' => 'integer',
+        'status' => 'integer',
+    ];
+    
     protected $fillable = [
         'id_section',
         'id_pelatihan',
@@ -24,5 +30,4 @@ class SectionModel extends Model
         'deskripsi_section',
         'status',
     ];
-
 }

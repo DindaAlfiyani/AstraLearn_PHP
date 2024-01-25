@@ -10,43 +10,45 @@
         </ul>
     </div>
     @endif
-    <div class="card">
-    <div class="card-header">
-        <h4 class="card-title">Edit Data Section</h4>
-    </div><br>
-        <div class="card-body">
-            <form method="POST" action="{{ route('section.update',$section->id_section) }}">
-                @csrf
-                @method('PUT')
-                <!-- Input hidden untuk id_pelatihan -->
-                <input type="hidden" id="id_pelatihan" name="id_pelatihan" value="{{ old('id_pelatihan', $defaultPelatihanId) }}">
-                <!-- Form group untuk label dan pesan error -->
-                <div class="form-group">
-                    <label for="id_pelatihan">ID Pelatihan</label>
-                    <input type="text" id="id_pelatihan" name="id_pelatihan" value="{{ old('id_pelatihan', $defaultPelatihanId) }}" class="form-control" disabled>
-                    <!-- Optional: Menambahkan field disabled untuk menampilkan nilai yang tidak dapat diubah oleh pengguna -->
-                    <br>
-                    @error('id_pelatihan')
-                        <span class="text-danger">{{ $message }}</span>
-                    @enderror
+    <div class="content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Edit Data Section</h4>
+                    </div><br>
+                    <div class="card-body">
+                <form method="POST" action="{{ route('section.update', $section->id_section) }}">
+                 @csrf
+                 @method('PUT')
+                 <div class="form-group">
+                    <input type="hidden" id="id_pelatihan" name="id_pelatihan" value="{{ request('id_pelatihan') }}">
                 </div>
                 <div class="form-group">
                     <label for="nama_section">Nama Section</label>
-                    <input type="text" id="nama_section" name="nama_section" value="{{ old('nama_section',$section->nama_section) }}" class="form-control">
+                    <input type="text" id="nama_section" name="nama_section" value="{{ old('nama_section, $section->nama_section') }}" class="form-control"><br>
                     @error('nama_section')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="video_pembelajaran">Video Pembelajaran</label>
-                    <input type="file" id="video_pembelajaran" name="video_pembelajaran" value="{{ old('video_pembelajaran',$section->video_pembelajaran) }}" class="form-control-file">
+                    <input type="file" id="video_pembelajaran" name="video_pembelajaran" value="{{ old('video_pembelajaran, $section->vide_pembelajaran') }}" class="form-control"><br>
                     @error('video_pembelajaran')
-                        <span class="text-danger">{{ $message }}</span>
+                    <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                </div>
+                <div class="form-group">
+                    <label for="modul_pembelajaran">Modul Pembelajaran</label>
+                    <input type="file" id="modul_pembelajaran" name="modul_pembelajaran" value="{{ old('modul_pembelajaran, $section->modul_pembelajaran') }}" class="form-control"><br>
+                    @error('modul_pembelajaran')
+                    <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
                 <div class="form-group">
                     <label for="deskripsi_section">Deskripsi Section</label>
-                    <input type="text" id="deskripsi_section" name="deskripsi_section" value="{{ old('deskripsi_section',$section->deskripsi_section) }}" class="form-control"><br>
+                    <input type="text" id="deskripsi_section" name="deskripsi_section" value="{{ old('deskripsi_section, $section->deskripsi_section') }}" class="form-control"><br>
                     @error('deskripsi_section')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
@@ -57,10 +59,13 @@
                 </div>
             </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary" style="background-color: #006CBB;">Submit</button>
+            <button type="submit" class="btn btn-primary"  style="background-color: #006CBB;">Submit</button>
         </div>
         </form>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
-
 @endsection

@@ -18,7 +18,7 @@ class PenggunaModel extends Model
     protected $fillable = [
         'id_pengguna',
         'username',
-        'nama_lengkap',
-        'hak_akses',
+        'nama',
+        'role',
     ];
 }

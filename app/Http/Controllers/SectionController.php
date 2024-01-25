@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\SectionModel;
 use App\Models\PelatihanModel;
+use App\Models\SectionModel;
 use Illuminate\Http\Request;
 
 class SectionController extends Controller
@@ -14,20 +14,29 @@ class SectionController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-     public function index()
+     public function index(Request $request)
      {
-        $section = SectionModel::all();
-         return view ('section.index',['section' => $section]);
+        $id_pelatihan = $request->input('id_pelatihan');
+        $id_section = $request->input('id_section');
+
+        $section = SectionModel::where('id_pelatihan', $id_pelatihan)->get();
+        $video = SectionModel::where('id_section', $id_section)->get();
+        return view('section.index', ['section' => $section, 'id_pelatihan' => $id_pelatihan, 'video' => $video]);
      }
     
-    public function create($id)
+    public function create(Request $request)
     {
-        // Misalnya, ambil id_pelatihan dari record pertama sebagai nilai default
-        $data = PelatihanModel::findOrFail($id);
-        $section = SectionModel::where('id_pelatihan', $id)->get();
+        $id_pelatihan = $request->input('id_pelatihan'); 
 
-        return view('section.create', ['pelatihan' => $data, 'section' => $section]);
-        
+        $id_section = SectionModel::where('id_pelatihan', $id_pelatihan)->first();
+        if($id_section) {
+        $section = SectionModel::where('id_section', $id_section)->get();
+        $video = SectionModel::where('id_section', $id_section)->get();
+        }else{
+            $section = [];
+            $video = [];
+        }
+        return view ('section.create',['section' => $section, 'id_pelatihan' => $id_pelatihan, 'video' => $video]);
     }
 
     /**
@@ -43,29 +52,37 @@ class SectionController extends Controller
             'nama_section' => 'required',
             'video_pembelajaran' => 'required',
             'modul_pembelajaran' => 'required',
-            'deskripsi_section' => 'required',
+            'deskripsi_section' => 'required|string',
             'status' => 'required|int',
         ], [
-            'id_pelatihan.required' => 'The nama section field is required.',
+            'id_pelatihan.required' => 'The id pelatihan field is required.',
             'nama_section.required' => 'The nama section field is required.',
             'video_pembelajaran.required' => 'The video pembelajaran field is required.',
             'modul_pembelajaran.required' => 'The modul pembelajaran field is required.',
             'deskripsi_section.required' => 'The deskripsi section field is required.',
-            'status.required' => 'The deskripsi section field is required.',
+            'status.required' => 'The status field is required.',
         ]);
 
-        // Simpan file video
-        //$videoPath = $request->file('video_pembelajaran')->store('videos', 'public');
+        $section = SectionModel::create($validatedData);
 
-        // Tambahkan path video ke dalam $validatedData
-        //$validatedData['video_pembelajaran'] = $videoPath;
+        if ($request->hasFile('video_pembelajaran')) {
+        $request->file('video_pembelajaran')->move('upload/', $request->file('video_pembelajaran')->getClientOriginalName());
+        $section->video_pembelajaran = $request->file('video_pembelajaran')->getClientOriginalName();
+        $section->save();
+        }
+        
+        if ($request->hasFile('modul_pembelajaran')) {
+            $request->file('modul_pembelajaran')->move('upload/', $request->file('modul_pembelajaran')->getClientOriginalName());
+            $section->modul_pembelajaran = $request->file('modul_pembelajaran')->getClientOriginalName();
+            $section->save();
+            }
 
-        // Simpan data ke dalam tabel "section"
-        SectionModel::create($validatedData);
+        $id_pelatihan = $request->input('id_pelatihan');
+        $id_section = $request->input('id_section');
 
-        $namaSection = $request->input('nama_section');
-
-        return redirect()->route('section.index')->with('namaSection', $namaSection)->with('success', 'Section Data Created Successfully');
+        $section = SectionModel::where('id_pelatihan', $id_pelatihan)->get();
+        $video = SectionModel::where('id_section', $id_section)->get();
+        return view('section.index', ['section' => $section, 'id_pelatihan' => $id_pelatihan, 'video' => $video]);
     }
 
 
@@ -87,11 +104,19 @@ class SectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Request $request, $id_section)
     {
-        //
-        $data = SectionModel::findOrFail($id);
-        return view('section.edit',['section' => $data]);
+        $id_pelatihan = $request->input('id_pelatihan');
+    
+        $section = SectionModel::where('id_section', $id_section)->first();
+    
+        if (!$section) {
+            return abort(404); // Handle the case when the section is not found
+        }
+    
+        $videos = SectionModel::where('id_section', $id_section)->get();
+    
+        return view('section.edit', ['section' => $section, 'id_pelatihan' => $id_pelatihan, 'videos' => $videos]);
     }
 
     /**
@@ -101,37 +126,25 @@ class SectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_section)
     {
-        //
+        $id_pelatihan = $request->input('id_pelatihan');
+
         $validatedData = $request->validate([
-            'id_pelatihan' => 'required|int',
             'nama_section' => 'required|string',
             'video_pembelajaran' => 'required',
             'modul_pembelajaran' => 'required|string',
             'deskripsi_section' => 'required|string',
             'status' => 'required|int',
-        ], [
-            'id_pelatihan.required' => 'The nama section field is required.',
-            'nama_section.required' => 'The nama section field is required.',
-            'video_pembelajaran.required' => 'The video pembelajaran field is required.',
-            'modul_pembelajaran.required' => 'The modul pembelajaran field is required.',
-            'deskripsi_section.required' => 'The deskripsi section field is required.',
-            'status.required' => 'The deskripsi section field is required.',
         ]);
 
-        // Simpan file video
-        //$videoPath = $request->file('video_pembelajaran')->store('videos', 'public');
+        $section = SectionModel::findOrFail($id_section);
 
-        // Tambahkan path video ke dalam $validatedData
-        //$validatedData['video_pembelajaran'] = $videoPath;
+        // Update the section with the validated data
+        $section->update($validatedData);
 
-        // Simpan data ke dalam tabel "section"
-        SectionModel::create($validatedData);
-
-        $namaSection = $request->input('nama_section');
-
-        return redirect()->route('section.index')->with('namaSection', $namaSection)->with('success', 'Section Data Created Successfully');
+        // Redirect back to the index page or any other appropriate route
+        return redirect()->route('section.index')->with('success', 'Section data updated successfully');
     }
 
     /**
@@ -140,13 +153,18 @@ class SectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request, $id)
     {
         //
         $data = SectionModel::findOrFail($id);
 
         $data->delete();
         
-        return redirect()->route('section.index')->with('success', 'Section Deleted Successfully');
+        $id_pelatihan = $request->input('id_pelatihan');
+        $id_section = $request->input('id_section');
+
+        $section = SectionModel::where('id_pelatihan', $id_pelatihan)->get();
+        $video = SectionModel::where('id_section', $id_section)->get();
+        return view('section.index', ['section' => $section, 'id_pelatihan' => $id_pelatihan, 'video' => $video]);
     }
 }

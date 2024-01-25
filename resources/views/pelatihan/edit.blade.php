@@ -18,7 +18,7 @@
             <form method="POST" action="{{ route('pelatihan.update',$pelatihan->id_pelatihan) }}">
                 @csrf
                 @method('PUT')
-                    <div class="form-group">
+                <div class="form-group">
                     <label for="nama_pelatihan">Nama Pelatihan</label>
                     <input type="text" id="nama_pelatihan" name="nama_pelatihan" value="{{ old('nama_pelatihan',$pelatihan->nama_pelatihan) }}" class="form-control"><br>
                     @error('nama_pelatihan')
@@ -31,7 +31,7 @@
                     @error('deskripsi_pelatihan')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
-                </div>
+                </div>
                 <div class="form-group">
                     <label for="klasifikasi_pelatihan">Klasifikasi Pelatihan</label>
                     <input type="text" id="klasifikasi_pelatihan" name="klasifikasi_pelatihan" value="{{ old('klasifikasi_pelatihan',$pelatihan->klasifikasi_pelatihan) }}" class="form-control"><br>

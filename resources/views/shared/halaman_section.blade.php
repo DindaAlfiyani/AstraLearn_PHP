@@ -84,25 +84,19 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('pelatihan.create') }}">
-          <i class="bi bi-grid"></i>
-          <span>Tambah Section</span>
-        </a>
+      <a class="nav-link collapsed" href="{{ route('section.create', ['id_pelatihan' => $id_pelatihan]) }}">
+        <i class="bi bi-grid"></i>
+        <span>Tambah Section</span>
+      </a>
       </li><!-- End Dashboard Nav -->
 
-      @if($section->count() > 0)
-      @foreach($section as $section)
-          <li class="nav-item">
-              <a class="nav-link" href="#">
-                  <span>{{ $section->nama_section }}</span>
-              </a>
-          </li>
-      @endforeach
-      @else
-          <li class="nav-item">
-              <span class="nav-link">Tidak ada section untuk pelatihan ini</span>
-          </li>
-      @endif
+    @foreach($section as $section)
+        <li class="nav-item">
+            <a class="nav-link" href="{{ route('section.index', ['id_pelatihan' => $section->id_pelatihan, 'id_section' => $section->id_section]) }}">
+                <span>{{ $section->nama_section }}</span>
+            </a>
+        </li>
+    @endforeach
 
      
       <li class="nav-item collapsed">

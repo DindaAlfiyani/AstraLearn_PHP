@@ -35,12 +35,12 @@
                             <tr class="text-center">
                                 <td>{{$item['nama_pelatihan']}}</td>
                                 <td>{{$item['deskripsi_pelatihan']}}</td>
-                                <td>{{$item['nama_klasifikasi']}}</td>
+                                <td>{{$item['klasifikasi->nama_klasifikasi']}}</td>
                                 <td>{{$item['nilai_minimum']}}</td>
                                 <td>
                                 <a href="{{ route('pelatihan.edit',['id'=> $item->id_pelatihan]) }}"><i class="bi bi-exclamation-triangle"></i></a>
                                 <a href="{{ route('pelatihan.delete',['id'=> $item->id_pelatihan]) }}"><i class="bi bi-trash"></i></a>
-                                <a href="{{ route('section.index',['id'=> $item->id_pelatihan]) }}"><i class="bi bi-trash"></i></a>
+                                <a href="{{ route('section.index',['id_pelatihan'=> $item->id_pelatihan]) }}"><i class="bi bi-pencil"></i></a>
                                 </td>
                             </tr>
                             <!-- Modal -->

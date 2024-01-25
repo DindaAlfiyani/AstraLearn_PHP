@@ -1,3 +1,3 @@
-@extends('layouts.customlayout2')
+@extends('layouts.customlayout1')
 @section('content')
 @endsection

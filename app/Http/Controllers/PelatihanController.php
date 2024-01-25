@@ -25,6 +25,12 @@ class PelatihanController extends Controller
          $klasifikasi = KlasifikasiModel::orderBy('nama_klasifikasi', 'asc')->pluck('nama_klasifikasi', 'id_klasifikasi');
          return view('pelatihan.create', ['klasifikasi' => $klasifikasi]);
      }
+
+     public function fetchPelatihan($id)
+     {
+         $pelatihan = PelatihanModel::find($id); // Adjust the column names and conditions
+         return response()->json(['status' => 200, 'data' => $pelatihan]);
+     }
      
     /**
      * Store a newly created resource in storage.
