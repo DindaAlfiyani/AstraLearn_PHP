@@ -1,4 +1,4 @@
-@extends('layouts.customlayout1')
+@extends('layouts.customlayout3')
 @section('content')
 <div class="container">
     @if ($errors->any())
@@ -33,26 +33,24 @@
                     @enderror
                 </div>
                 <div class="form-group">
-                    <label for="klasifikasi_pelatihan">Klasifikasi Pelatihan</label>
-                    <input type="text" id="klasifikasi_pelatihan" name="klasifikasi_pelatihan" value="{{ old('klasifikasi_pelatihan',$pelatihan->klasifikasi_pelatihan) }}" class="form-control"><br>
-                    @error('klasifikasi_pelatihan')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="jumlah_peserta">Jumlah Peserta</label>
-                    <input type="text" id="jumlah_peserta" name="jumlah_peserta" value="{{ old('jumlah_peserta',$pelatihan->jumlah_peserta) }}" class="form-control"><br>
-                    @error('jumlah_peserta')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
-                <div class="form-group">
-                    <label for="nilai_minimum">Nilai Minimum</label>
-                    <input type="text" id="nilai_minimum" name="nilai_minimum" value="{{ old('nilai_minimum',$pelatihan->nilai_minimum) }}" class="form-control"><br>
-                    @error('nilai_minimum')
-                    <span class="text-danger">{{ $message }}</span>
-                    @enderror
-                </div>
+                        <label for="klasifikasi_pelatihan">Klasifikasi Pelatihan</label>
+                        <br />
+                        <select name="id_klasifikasi" class="custom-select form-control">
+                            <option value="">Pilih Klasifikasi</option>
+                            @foreach ($klasifikasi as $id_klasifikasi => $nama_klasifikasi)
+                                <option value="{{ $id_klasifikasi }}" {{ (old('id_klasifikasi') == $id_klasifikasi || $pelatihan->id_klasifikasi == $id_klasifikasi) ? 'selected' : '' }}>
+                                    {{ $nama_klasifikasi }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="nilai_minimum">Nilai Minimum</label>
+                        <input type="text" id="nilai_minimum" name="nilai_minimum" value="{{ old('nilai_minimum',$pelatihan->nilai_minimum) }}" class="form-control"><br>
+                        @error('nilai_minimum')
+                        <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary" style="background-color: #006CBB;">Submit</button>

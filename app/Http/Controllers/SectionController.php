@@ -104,20 +104,18 @@ class SectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit(Request $request, $id_section)
+    public function edit($id)
     {
-        $id_pelatihan = $request->input('id_pelatihan');
+        // Mengambil data section berdasarkan ID
+        $section = SectionModel::find($id);
     
-        $section = SectionModel::where('id_section', $id_section)->first();
+        // Mengambil data section terkait dengan pelatihan
+        $sections = SectionModel::where('id_pelatihan', $section->id_pelatihan)->get();
     
-        if (!$section) {
-            return abort(404); // Handle the case when the section is not found
-        }
-    
-        $videos = SectionModel::where('id_section', $id_section)->get();
-    
-        return view('section.edit', ['section' => $section, 'id_pelatihan' => $id_pelatihan, 'videos' => $videos]);
+        // Mengembalikan view edit beserta data section yang akan diedit dan yang terkait dengan pelatihan
+        return view('section.edit', compact('section', 'sections'));
     }
+    
 
     /**
      * Update the specified resource in storage.
@@ -126,10 +124,10 @@ class SectionController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id_section)
-    {
-        $id_pelatihan = $request->input('id_pelatihan');
 
+    public function update(Request $request, $id)
+    {
+        // Validasi data yang diterima dari form
         $validatedData = $request->validate([
             'nama_section' => 'required|string',
             'video_pembelajaran' => 'required',
@@ -138,14 +136,16 @@ class SectionController extends Controller
             'status' => 'required|int',
         ]);
 
-        $section = SectionModel::findOrFail($id_section);
+        // Mengambil data section berdasarkan ID
+        $section = SectionModel::findOrFail($id);
 
-        // Update the section with the validated data
+        // Mengupdate data section dengan data yang sudah divalidasi
         $section->update($validatedData);
 
-        // Redirect back to the index page or any other appropriate route
-        return redirect()->route('section.index')->with('success', 'Section data updated successfully');
+        // Redirect kembali ke halaman index atau halaman lain yang sesuai
+        return view('section.index', ['id_pelatihan' => $section->id_pelatihan])->with('success', 'Section data updated successfully');
     }
+
 
     /**
      * Remove the specified resource from storage.

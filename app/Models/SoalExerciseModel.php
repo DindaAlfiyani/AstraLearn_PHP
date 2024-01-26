@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 class SoalExerciseModel extends Model
 {
     use HasFactory;
-    protected $primaryKey = 'id_exercise';
+    protected $primaryKey = 'id_detail';
     protected $table = 'soal_exercise';
     public $timestamps = false;
 
@@ -21,7 +21,8 @@ class SoalExerciseModel extends Model
         return $this->belongsTo(SectionModel::class, 'id_section');
     }
     protected $fillable = [
-        'id_exercise',
+        'id_detail',
+       'id_exercise',
        'id_section',
         'soal',
         'pilgan1',

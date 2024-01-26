@@ -1,4 +1,4 @@
-@extends('layouts.customlayout3')
+@extends('layouts.customlayout4')
 
 @section('content')
 <!-- Begin Page Content -->

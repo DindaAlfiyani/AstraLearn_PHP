@@ -99,34 +99,6 @@
           <span>Data Pelatihan</span>
         </a>
       </li>
-
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="pengguna">
-            <i class="bi bi-person-vcard"></i>
-            <span>Data Pengguna</span>
-        </a>
-      </li>    
-
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="klasifikasi">
-            <i class="bi bi-card-list"></i>
-            <span>Klasifikasi Pelatihan</span>
-        </a>
-      </li> 
-
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="soalexam">
-            <i class="bi bi-card-list"></i>
-            <span>Exam</span>
-        </a>
-      </li> 
-
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="soalexercise">
-            <i class="bi bi-card-list"></i>
-            <span>Exercise</span>
-        </a>
-      </li> 
      
       <li class="nav-item">
         <a class="nav-link collapsed" href="Login">

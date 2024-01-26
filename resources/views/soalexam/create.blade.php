@@ -1,4 +1,4 @@
-@extends('layouts.customlayout1')
+@extends('layouts.customlayout3')
 @section('content')
 <div class="container">
     @if ($errors->any())
@@ -22,7 +22,9 @@
                     <form method="POST" action="{{ route('soalexam.store') }}">
                 @csrf
                 <!-- Tambahkan input tersembunyi untuk status di sini -->
-                <input type="hidden" name="status" value="1">
+                <div class="form-group">
+                    <input type="hidden" id="id_pelatihan" name="id_pelatihan" value="{{ request('id_pelatihan') }}">
+                </div>
                 
                 <div class="form-group">
                     <label for="soal">Soal</label>

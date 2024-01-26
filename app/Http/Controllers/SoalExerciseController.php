@@ -55,53 +55,80 @@ class SoalExerciseController extends Controller
         return redirect()->route('soalexercise.index')->with('success', 'Soal Exercise Data Created Successfully');
     }
 
+
     public function submit(Request $request)
     {
         // Retrieve submitted answers
         $submittedAnswers = $request->input('jawaban_id');
-
-        $nilai = 0;
         $id_result = Str::random(10);
-        $id_section = $request->id_section;
-        $tanggal_ambil = now();
 
-        ResultExerciseModel::create([
-            "id_result" => $id_result,
-            "id_section" => $id_section,
-            "nilai" => 0,
-            "tanggal_ambil" => $tanggal_ambil
-        ]);
+        $correctCount = 0; // Initialize correct count
 
+        // Calculate correct count
         foreach ($submittedAnswers as $questionId => $answer) {
-            // Assuming $questionId is the question ID and $answer is the submitted answer
-            $correct_answer = SoalExerciseModel::where("id_exercise", $questionId)->first();
-            $is_correct = 0;
-            if($correct_answer->kunci_jawaban == $answer) {
-                $nilai = $nilai+10;
-                $is_correct = 1;
+            $correct_answer = SoalExerciseModel::where("id_exercise", $questionId)->value('kunci_jawaban');
+            if ($correct_answer == $answer) {
+                $correctCount++;
             }
 
+            // Create DetailSoalExerciseModel record
             DetailSoalExerciseModel::create([
                 "id_exercise" => $questionId,
                 "id_pengguna" => 1,
                 "id_result" => $id_result,
                 "jawaban" => $answer,
-                "nilai" => $is_correct,
-                "status" => null
+                "nilai" => ($correct_answer == $answer) ? 1 : 0,
+                "status" => 1
             ]);
         }
 
-        ResultExerciseModel::where("id_result", $id_result)->update([
-            "nilai" => $nilai
-        ]);
-    
-        // Add any additional logic you need after processing the answers
-    
-        // For example, you might redirect the user to a result page
-        return redirect()->route('soalexercise.index');
+        // Calculate total questions
+        $totalQuestions = count($submittedAnswers);
+
+        // Calculate percentage score
+        $percentageScore = ($correctCount / $totalQuestions) * 100;
+
+        // Generate random id_result
+        $id_result = Str::random(10);
+        $id_section = $request->id_section;
+        $tanggal_ambil = now();
+
+        // Check if a record with the same id_result already exists
+        $existingResult = ResultExerciseModel::where('id_result', $id_result)->first();
+
+        if (!$existingResult) {
+            ResultExerciseModel::create([
+                "id_result" => $id_result,
+                "id_section" => $id_section,
+                "nilai" => $percentageScore,
+                "tanggal_ambil" => $tanggal_ambil
+            ]);
+        }
+
+        // Redirect to the result page
+        return redirect()->route('soalexercise.result', ['id_result' => $id_result]);
     }
+
+        
+        public function showResult($id_result)
+        {
+            // Retrieve the result based on the given id_result
+            $result = ResultExerciseModel::where('id_result', $id_result)->first();
+
+            // Check if the result exists
+            if (!$result) {
+                abort(404); // Result not found, return 404 page
+            }
+            $nilai = $result->nilai;
+
+            // Pass the result data to the view
+            return view('soalexercise.result', compact('result', 'nilai'));
+        }
+
     
 
+    
+    
 
     public function show($id)
     {

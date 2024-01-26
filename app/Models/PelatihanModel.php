@@ -15,6 +15,10 @@ class PelatihanModel extends Model
 
     public $incrementing = true;
 
+    public function klasifikasi(){
+        return $this->belongsTo(KlasifikasiModel::class, 'id_klasifikasi');
+    }
+
     protected $fillable = [
         'id_pelatihan',
         'id_pengguna',

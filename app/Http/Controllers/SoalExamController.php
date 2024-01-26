@@ -7,18 +7,20 @@ use Illuminate\Http\Request;
 
 class SoalExamController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $idpelatihan = 1; // Ganti dengan idsection yang diinginkan
-        $soalexam = SoalExamModel::with('pelatihan')->where('id_pelatihan', $idpelatihan)->get();
-        return view('soalexam.index', ['soal_exam' => $soalexam]);
+        $id_pelatihan = $request->input('id_pelatihan'); 
+        $soalexam = SoalExamModel::where('id_pelatihan', $id_pelatihan)->get();
+        return view('soalexam.index', ['soal_exam' => $soalexam, 'id_pelatihan' => $id_pelatihan]);
     }
 
-    public function create()
+    public function create(Request $request)
     {
-        return view('soalexam.create');
+        $id_pelatihan = $request->input('id_pelatihan'); 
+        $exam = SoalExamModel::where('id_pelatihan', $id_pelatihan)->first();
+        return view('soalexam.create',['id_pelatihan' => $id_pelatihan, 'exam' => $exam]);
     }
-
+   
     public function store(Request $request)
     {
         $validatedData = $request->validate([

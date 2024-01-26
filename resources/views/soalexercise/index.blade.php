@@ -23,7 +23,7 @@
                                 @endif
                                 <form method="POST" action="{{ route('soalexercise.submit') }}">
                                 @csrf
-                                <input type="text" name="id_section" value="1" />
+                                <input type="hidden" name="id_section" value="1" />
                                 @forelse ($soal_exercise as $item)
                                 <div class="mb-4">
                                     <p><strong>Soal: </strong> {{ $item->soal }}</p>

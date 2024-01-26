@@ -17,7 +17,8 @@ class PelatihanController extends Controller
      public function index()
      {
         $pelatihan = PelatihanModel::all();
-         return view ('pelatihan.index',['pelatihan' => $pelatihan]);
+        $klasifikasi = KlasifikasiModel::orderBy('nama_klasifikasi', 'asc')->pluck('nama_klasifikasi', 'id_klasifikasi');
+         return view ('pelatihan.index',['pelatihan' => $pelatihan, 'klasifikasi' => $klasifikasi]);
      }
     
      public function create()
@@ -26,11 +27,6 @@ class PelatihanController extends Controller
          return view('pelatihan.create', ['klasifikasi' => $klasifikasi]);
      }
 
-     public function fetchPelatihan($id)
-     {
-         $pelatihan = PelatihanModel::find($id); // Adjust the column names and conditions
-         return response()->json(['status' => 200, 'data' => $pelatihan]);
-     }
      
     /**
      * Store a newly created resource in storage.
@@ -57,7 +53,8 @@ class PelatihanController extends Controller
 
         PelatihanModel::create($validatedData);
 
-        return redirect()->route('pelatihan.index')->with('succes', 'Pelatihan Data Created Successfully');
+        return redirect()->route('pelatihan.index')->with('success', 'Pelatihan Data Created Successfully');
+
 
     }
 
@@ -82,8 +79,9 @@ class PelatihanController extends Controller
     public function edit($id)
     {
         //
-        $data = PelatihanModel::findOrFail($id);
-        return view('pelatihan.edit',['pelatihan' => $data]);
+        $pelatihan = PelatihanModel::findOrFail($id);
+        $klasifikasi = KlasifikasiModel::orderBy('nama_klasifikasi', 'asc')->pluck('nama_klasifikasi', 'id_klasifikasi');
+        return view('pelatihan.edit', ['pelatihan' => $pelatihan, 'klasifikasi'=>$klasifikasi]);
     }
 
     /**

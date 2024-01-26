@@ -1,1 +1,1 @@
-@include('shared.index')
+@include('shared.halaman_admin')

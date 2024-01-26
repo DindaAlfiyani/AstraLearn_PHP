@@ -1,4 +1,4 @@
-@extends('layouts.customlayout1')
+@extends('layouts.customlayout3')
 @section('content')
 <div class="container">
     @if ($errors->any())

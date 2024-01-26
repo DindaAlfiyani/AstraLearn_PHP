@@ -19,9 +19,9 @@
                         <h4 class="card-title">Edit Data Section</h4>
                     </div><br>
                     <div class="card-body">
-                <form method="POST" action="{{ route('section.update', $section->id_section) }}">
-                 @csrf
-                 @method('PUT')
+                    <form method="POST" action="{{ route('section.update', $sections->id_section) }}">
+                @csrf
+                @method('PUT')
                  <div class="form-group">
                     <input type="hidden" id="id_pelatihan" name="id_pelatihan" value="{{ request('id_pelatihan') }}">
                 </div>

@@ -27,6 +27,11 @@ class AstraLearnController extends Controller
         return view ('Halaman_Pelatih.index');
     }
 
+    public function halaman_peserta()
+    {
+        return view ('Halaman_Peserta.index');
+    }
+
     public function create()
     {
         //

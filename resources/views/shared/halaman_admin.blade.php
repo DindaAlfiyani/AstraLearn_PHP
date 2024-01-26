@@ -72,7 +72,7 @@
 
         <li class="nav-item dropdown pe-3">
           <a class="nav-link nav-profile d-flex align-items-center" href="#">
-            <span class="d-none d-md-block">|   Pelatih </span>
+            <span class="d-none d-md-block">|   Admin </span>
             <input type="hidden" id="idLogin" value="@loggedInUserId" />
             <input type="hidden" id="namaPengguna" value="@IsLoggedIn" />
           </a><!-- End Profile Image Icon -->
@@ -94,13 +94,6 @@
       </li><!-- End Dashboard Nav -->
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="pelatihan">
-            <i class="bi bi-card-list"></i>
-          <span>Data Pelatihan</span>
-        </a>
-      </li>
-
-      <li class="nav-item">
         <a class="nav-link collapsed"  href="pengguna">
             <i class="bi bi-person-vcard"></i>
             <span>Data Pengguna</span>
@@ -115,16 +108,9 @@
       </li> 
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="soalexam">
+        <a class="nav-link collapsed"  href="mengikuti_pelatihan">
             <i class="bi bi-card-list"></i>
-            <span>Exam</span>
-        </a>
-      </li> 
-
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="soalexercise">
-            <i class="bi bi-card-list"></i>
-            <span>Exercise</span>
+            <span>Mengikuti Pelatihan</span>
         </a>
       </li> 
      

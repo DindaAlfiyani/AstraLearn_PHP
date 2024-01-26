@@ -1,6 +1,6 @@
 <!-- resources/views/soal_exercise/index.blade.php -->
 
-@extends('layouts.customlayout1')
+@extends('layouts.customlayout4')
 
 @section('content')
 <div class="container">

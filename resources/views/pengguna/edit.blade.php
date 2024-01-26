@@ -34,11 +34,16 @@
                 </div>
                 <div class="form-group">
                     <label for="role">Role</label>
-                    <input type="text" id="role" name="role" value="{{ old('role',$pengguna->role) }}" class="form-control"><br>
+                    <select id="role" name="role" class="custom-select form-control">
+                        <option value="admin" {{ (old('role', $pengguna->role) == 'admin') ? 'selected' : '' }}>Admin</option>
+                        <option value="pelatih" {{ (old('role', $pengguna->role) == 'pelatih') ? 'selected' : '' }}>Pelatih</option>
+                        <option value="peserta" {{ (old('role', $pengguna->role) == 'peserta') ? 'selected' : '' }}>Peserta</option>
+                    </select>
                     @error('role')
                     <span class="text-danger">{{ $message }}</span>
                     @enderror
                 </div>
+
         </div>
         <div class="card-footer">
             <button type="submit" class="btn btn-primary" style="background-color: #006CBB;">Submit</button>
