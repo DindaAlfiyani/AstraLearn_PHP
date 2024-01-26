@@ -46,8 +46,6 @@ class SoalExamController extends Controller
         ]);
 
         SoalExamModel::create($validatedData);
-        
-   
 
         return redirect()->route('soalexam.index')->with('success', 'Soal Exam Data Created Successfully');
     }
@@ -89,7 +87,7 @@ class SoalExamController extends Controller
 
         $data->update($validatedData);
 
-        return redirect()->route('soalexam.index')->with('success', 'Soal Exam Data Updated Successfully');
+        return redirect()->route('soalexam.index')->with('update', 'Soal Exam Data Updated Successfully');
     }
 
     public function destroy($id)
@@ -97,6 +95,6 @@ class SoalExamController extends Controller
         $data = SoalExamModel::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('soalexam.index')->with('success', 'Soal Exam Data Deleted Successfully');
+        return redirect()->route('soalexam.index')->with('delete', 'Soal Exam Data Deleted Successfully');
     }
 }

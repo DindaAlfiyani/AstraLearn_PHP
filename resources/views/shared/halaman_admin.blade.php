@@ -29,12 +29,10 @@
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets2/css/style.css') }}" rel="stylesheet">
 
- <!-- Link CSS Swal -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
+ <!-- Link Script Swal -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.all.min.js"></script>
 
-<!-- Link Script Swal -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
    <!-- =======================================================
   * Template Name: NiceAdmin
@@ -108,11 +106,11 @@
       </li> 
 
       <li class="nav-item">
-        <a class="nav-link collapsed"  href="mengikuti_pelatihan">
+        <a class="nav-link collapsed" href="pelatihan/indexAdmin">
             <i class="bi bi-card-list"></i>
-            <span>Mengikuti Pelatihan</span>
+          <span>Data Pelatihan</span>
         </a>
-      </li> 
+      </li>
      
       <li class="nav-item">
         <a class="nav-link collapsed" href="Login">

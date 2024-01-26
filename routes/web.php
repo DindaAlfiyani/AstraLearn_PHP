@@ -6,7 +6,6 @@ use App\Http\Controllers\PelatihanController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PenggunaController;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\MengikutiPelatihanController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\SectionController;
 use App\Http\Controllers\SoalExamController;
@@ -30,9 +29,8 @@ use Illuminate\Support\Facades\Route;
 Route::get('AstraLearn', [AstraLearnController::class,'index'])->name('AstraLearn.index');
 Route::get('Login', [AstraLearnController::class,'index2'])->name('Login.index');
 Route::get('Halaman_Pelatih', [AstraLearnController::class,'halaman_pelatih'])->name('Halaman_Pelatih.index');
-Route::get('Halaman_Peserta', [AstraLearnController::class,'halaman_peserta'])->name('Halaman_Peserta.index');
 
-
+Route::get('pelatihan/indexAdmin', [PelatihanController::class,'indexAdmin'])->name('pelatihan.indexAdmin');
 Route::get('pelatihan', [PelatihanController::class,'index'])->name('pelatihan.index');
 Route::get('pelatihan/create', [PelatihanController::class,'create'])->name('pelatihan.create');
 Route::post('pelatihan/store', [PelatihanController::class,'store'])->name('pelatihan.store');
@@ -64,12 +62,12 @@ Route::get('section/video/{id}', [SectionController::class,'video'])->name('sect
 
 Route::get('soalexercise', [SoalExerciseController::class,'index'])->name('soalexercise.index');
 Route::get('soalexercise/create', [SoalExerciseController::class,'create'])->name('soalexercise.create');
+Route::post('soalexercise/nilai', [SoalExerciseController::class,'nilai'])->name('soalexercise.nilai');
 Route::post('soalexercise/store', [SoalExerciseController::class,'store'])->name('soalexercise.store');
 Route::get('soalexercise/edit/{id}', [SoalExerciseController::class,'edit'])->name('soalexercise.edit');
 Route::put('soalexercise/update/{id}', [SoalExerciseController::class,'update'])->name('soalexercise.update');
 Route::get('soalexercise/delete/{id}', [SoalExerciseController::class,'destroy'])->name('soalexercise.delete');
 Route::post('soalexercise/submit', [SoalExerciseController::class, 'submit'])->name('soalexercise.submit');
-Route::get('soalexercise/result/{id_result}', [SoalExerciseController::class, 'showResult'])->name('soalexercise.result');
 
 Route::get('soalexam', [SoalExamController::class,'index'])->name('soalexam.index');
 Route::get('soalexam/create', [SoalExamController::class,'create'])->name('soalexam.create');
@@ -77,8 +75,6 @@ Route::post('soalexam/store', [SoalExamController::class,'store'])->name('soalex
 Route::get('soalexam/edit/{id}', [SoalExamController::class,'edit'])->name('soalexam.edit');
 Route::put('soalexam/update/{id}', [SoalExamController::class,'update'])->name('soalexam.update');
 Route::get('soalexam/delete/{id}', [SoalExamController::class,'destroy'])->name('soalexam.delete');
-
-Route::get('mengikutipelatihan', [MengikutiPelatihanController::class,'index'])->name('mengikuti_pelatihan.index');
 
 Route::get('/', [LoginController::class, 'login'])->name('login');
 Route::get('login', [LoginController::class, 'login'])->name('login');

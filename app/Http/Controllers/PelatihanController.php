@@ -14,6 +14,12 @@ class PelatihanController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+    public function indexAdmin()
+    {
+        $pelatihan_admin = PelatihanModel::all();
+        return view('pelatihan_admin.index', ['pelatihan' => $pelatihan_admin]);
+    }
+
      public function index()
      {
         $pelatihan = PelatihanModel::all();
@@ -97,14 +103,12 @@ class PelatihanController extends Controller
         $validatedData = $request->validate([
             'nama_pelatihan' => 'required|string',
             'deskripsi_pelatihan' => 'required|string',
-            'klasifikasi_pelatihan' => 'required|string',
-            'jumlah_peserta' => 'required|int',
+            'id_klasifikasi' => 'required|string',
             'nilai_minimum' => 'required|int',
         ], [
             'nama_pelatihan.required' => 'The nama pelatihan field is required.',
             'deskripsi_pelatihan.required' => 'The deskripsi pelatihan field is required.',
-            'klasifikasi_pelatihan.required' => 'The klasifiksi pelatihan field is required.',
-            'jumlah_peserta.required' => 'The jumlah peserta field is required.',
+            'id_klasifikasi.required' => 'The klasifiksi pelatihan field is required.',
             'nilai_minimum.required' => 'The jumlah peserta field is required.',
         ]);
 
@@ -112,7 +116,7 @@ class PelatihanController extends Controller
 
         $data->update($validatedData);
 
-        return redirect()->route('pelatihan.index')->with('success', 'Pelatihan data Updated Successfully');
+        return redirect()->route('pelatihan.index')->with('update', 'Pelatihan data Updated Successfully');
     }
 
     /**
@@ -128,6 +132,6 @@ class PelatihanController extends Controller
 
         $data->delete();
         
-        return redirect()->route('pelatihan.index')->with('success', 'Pelatihan Deleted Successfully');
+        return redirect()->route('pelatihan.index')->with('delete', 'Pelatihan Deleted Successfully');
     }
 }

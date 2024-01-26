@@ -43,7 +43,7 @@
                                 </option>
                             @endforeach
                         </select>
-                    </div>
+                    </div>
                     <div class="form-group">
                         <label for="nilai_minimum">Nilai Minimum</label>
                         <input type="text" id="nilai_minimum" name="nilai_minimum" value="{{ old('nilai_minimum',$pelatihan->nilai_minimum) }}" class="form-control"><br>
@@ -58,5 +58,12 @@
         </form>
     </div>
 </div>
+
+<!-- Script SweetAlert -->
+@if(session('update'))
+    <div class="alert alert-success">
+        {{ session('update') }}
+    </div>
+@endif
 
 @endsection

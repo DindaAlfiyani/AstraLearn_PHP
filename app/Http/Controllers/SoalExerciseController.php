@@ -167,7 +167,7 @@ class SoalExerciseController extends Controller
 
         $data->update($validatedData);
 
-        return redirect()->route('soalexercise.index')->with('success', 'Soal Exercise Data Updated Successfully');
+        return redirect()->route('soalexercise.index')->with('update', 'Soal Exercise Data Updated Successfully');
     }
 
     public function destroy($id)
@@ -175,6 +175,6 @@ class SoalExerciseController extends Controller
         $data = SoalExerciseModel::findOrFail($id);
         $data->delete();
 
-        return redirect()->route('soalexercise.index')->with('success', 'Soal Exercise Data Deleted Successfully');
+        return redirect()->route('soalexercise.index')->with('delete', 'Soal Exercise Data Deleted Successfully');
     }
 }

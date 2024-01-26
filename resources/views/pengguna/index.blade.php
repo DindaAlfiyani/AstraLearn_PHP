@@ -10,7 +10,6 @@
     <br>
 
     <section class="section">
-    <a type="button" class="btn btn-primary" href="{{ route('pengguna.create') }}" style="background-color: #006CBB;"><i class="fa fa-plus" aria-hidden="true"></i>&nbsp;+ Add Pengguna</a><br><br>
       <div class="row">
         <div class="col-lg-12">
         <div class="card">
@@ -36,8 +35,9 @@
                                 <td>{{$item['nama']}}</td>
                                 <td>{{$item['role']}}</td>
                                 <td>
-                                <a href="{{ route('pengguna.edit',['id'=> $item->id_pengguna]) }}"><i class="bi bi-exclamation-triangle"></i></a>
-                                <a href="{{ route('pengguna.delete',['id'=> $item->id_pengguna]) }}"><i class="bi bi-trash"></i></a>
+                                <a href="{{ route('pengguna.edit',['id'=> $item->id_pengguna]) }}">
+                                    <button type="button" class="btn btn-primary">Kelola Akses</button>
+                                </a>
                                 </td>
                             </tr>
                             <!-- Modal -->
@@ -87,6 +87,18 @@
                             @endforelse
                         </tbody>
                     </table>
+
+                    @if(session('update'))
+                        <script>
+                            Swal.fire({
+                                icon: 'success',
+                                title: 'Success!',
+                                text: 'Kelola Akses berhasil diubah.',
+                                showConfirmButton: false,
+                                timer: 2000
+                            });
+                        </script>
+                    @endif
                 </div>
             </div>
         </div>

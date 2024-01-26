@@ -29,12 +29,7 @@
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets2/css/style.css') }}" rel="stylesheet">
 
- <!-- Link CSS Swal -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11">
-
-<!-- Link Script Swal -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
    <!-- =======================================================
   * Template Name: NiceAdmin

@@ -11,6 +11,9 @@
             </div>
             <br>
             <section class="section">
+                <a type="button" class="btn btn-primary" href="{{ route('soalexam.create') }}" style="background-color: #006CBB;">
+                   <i class="fa fa-plus" aria-hidden="true"></i>&nbsp;+ Add Soal Exam
+                </a><br><br>
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="card">
@@ -20,52 +23,74 @@
                                     {{session('success')}}
                                 </div>
                                 @endif
-                                @forelse ($soal_exam as $item)
-                                <div class="mb-4">
-                                    <p><strong>Soal:</strong> {{ $item->soal }}</p>
+                                <table class="table">
+                                    <thead class="thead-dark text-center">
+                                        <tr>
+                                            <th>Soal</th>
+                                            <th>Kunci Jawaban</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @forelse ($soal_exam as $item)
+                                        <tr class="text-center">
+                                            <td>{{$item->soal}}</td>
+                                            <td>{{$item->kunci_jawaban}}</td>
+                                            <td>
+                                                <a href="{{ route('soalexam.edit',['id'=> $item->id_exam]) }}">
+                                                    <button type="button" class="btn btn-warning"><i class="bi bi-pencil"></i></button>
+                                                </a>
+                                                <a href="#" class="delete-btn" data-id="{{ $item->id_exam }}">
+                                                    <button type="button" class="btn btn-danger"><i class="bi bi-trash"></i></button>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="exampleModal{{$item->id_exam}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <!-- ... your existing modal code ... -->
+                                        </div>
+                                        @empty
+                                        <tr>
+                                            <td colspan="4">No soal available</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                                @if(session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: 'Data berhasil ditambahkan.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                </script>
+                                @endif
 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio"
-                                            name="jawaban_{{ $item->id_exam }}" id="pilgan1_{{ $item->id_exam }}"
-                                            value="pilgan1">
-                                        <label class="form-check-label"
-                                            for="pilgan1_{{ $item->id_exam }}">{{ $item->pilgan1 }}</label>
-                                    </div>
+                                @if(session('update'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: 'Data berhasil diubah.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                </script>
+                                @endif
 
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio"
-                                            name="jawaban_{{ $item->id_exam }}" id="pilgan2_{{ $item->id_exam }}"
-                                            value="pilgan2">
-                                        <label class="form-check-label"
-                                            for="pilgan2_{{ $item->id_exam }}">{{ $item->pilgan2 }}</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio"
-                                            name="jawaban_{{ $item->id_exam }}" id="pilgan3_{{ $item->id_exam }}"
-                                            value="pilgan3">
-                                        <label class="form-check-label"
-                                            for="pilgan3_{{ $item->id_exam }}">{{ $item->id_exam }}</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio"
-                                            name="jawaban_{{ $item->id_exam }}" id="pilgan4_{{ $item->id_exam }}"
-                                            value="pilgan4">
-                                        <label class="form-check-label"
-                                            for="pilgan4_{{ $item->id_exam }}">{{ $item->pilgan4 }}</label>
-                                    </div>
-
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="radio"
-                                            name="jawaban_{{ $item->id_exam }}" id="pilgan5_{{ $item->id_exam }}"
-                                            value="pilgan5">
-                                        <label class="form-check-label"
-                                            for="pilgan5_{{ $item->id_exam }}">{{ $item->pilgan5 }}</label>
-                                    </div><br>
-                                @empty
-                                <p>No soal available</p>
-                                @endforelse
+                                @if(session('delete'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: 'Data berhasil dihapus.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                </script>
+                                @endif
                             </div>
                         </div>
                     </div>
@@ -74,4 +99,26 @@
         </div>
     </div>
 </div>
+
+<!-- Script SweetAlert -->
+<script>
+    $(document).ready(function () {
+    $('.delete-btn').on('click', function (event) {
+        event.preventDefault();
+        var id = $(this).data('id');
+        Swal.fire({
+            title: 'Yakin data ingin dihapus?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to delete route with the correct parameter
+                window.location.href = "{{ url('pelatihan/delete') }}/" + id;
+            }
+        });
+    });
+});
+</script>
 @endsection

@@ -46,7 +46,8 @@ class KlasifikasiController extends Controller
 
         KlasifikasiModel::create($validatedData);
 
-        return redirect()->route('klasifikasi.index')->with('succes', 'Klasifikasi Data Created Successfully');
+        return redirect()->route('klasifikasi.index')->with('success', 'Data berhasil ditambahkan.');
+
 
     }
 
@@ -98,7 +99,7 @@ class KlasifikasiController extends Controller
 
         $data->update($validatedData);
 
-        return redirect()->route('klasifikasi.index')->with('success', 'Klasifikasi data Updated Successfully');
+        return redirect()->route('klasifikasi.index')->with('update', 'Klasifikasi data Updated Successfully');
     }
 
     /**
@@ -114,6 +115,6 @@ class KlasifikasiController extends Controller
 
         $data->delete();
         
-        return redirect()->route('klasifikasi.index')->with('success', 'Klasifikasi Deleted Successfully');
+        return redirect()->route('klasifikasi.index')->with('delete', 'Klasifikasi Deleted Successfully');
     }
 }

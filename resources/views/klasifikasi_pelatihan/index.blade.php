@@ -15,11 +15,8 @@
         <div class="col-lg-12">
         <div class="card">
             <div class="card-body"><br>
-                    @if(session('success'))
-                    <div class="alert alert-success">
-                        {{session('success')}}
-                    </div>
-                    @endif
+                               
+
                     <table id = "myTable" class="table datatable"">
                         <thead class="thead-dark text-center">
                             <tr>
@@ -35,7 +32,9 @@
                                 <td>{{$item['deskripsi']}}</td>
                                 <td>
                                 <a href="{{ route('klasifikasi.edit',['id'=> $item->id_klasifikasi]) }}"><i class="bi bi-exclamation-triangle"></i></a>
-                                <a href="{{ route('klasifikasi.delete',['id'=> $item->id_klasifikasi]) }}"><i class="bi bi-trash"></i></a>
+                                <a href="#" class="delete-btn" data-id="{{ $item->id_klasifikasi }}">
+                                    <i class="bi bi-trash"></i>
+                                </a>
                                 </td>
                             </tr>
                             <!-- Modal -->
@@ -77,9 +76,68 @@
                             @endforelse
                         </tbody>
                     </table>
+
+                     @if(session('success'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: 'Data berhasil ditambahkan.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                </script>
+                                @endif
+
+                                @if(session('update'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: 'Data berhasil diubah.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                </script>
+                                @endif
+
+                                @if(session('delete'))
+                                <script>
+                                    Swal.fire({
+                                        icon: 'success',
+                                        title: 'Success!',
+                                        text: 'Data berhasil dihapus.',
+                                        showConfirmButton: false,
+                                        timer: 2000
+                                    });
+                                </script>
+                                @endif
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+<!-- Script SweetAlert -->
+<script>
+    $(document).ready(function () {
+    $('.delete-btn').on('click', function (event) {
+        event.preventDefault();
+        var id = $(this).data('id');
+        Swal.fire({
+            title: 'Yakin data ingin dihapus?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Ya',
+            cancelButtonText: 'Tidak',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                // Redirect to delete route with the correct parameter
+                window.location.href = "{{ url('klasifikasi/delete') }}/" + id;
+            }
+        });
+    });
+});
+</script>
+
 @endsection

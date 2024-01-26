@@ -29,6 +29,8 @@
 
   <!-- Template Main CSS File -->
   <link href="{{ asset('assets2/css/style.css') }}" rel="stylesheet">
+  
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
    <!-- =======================================================
   * Template Name: NiceAdmin
@@ -111,6 +113,19 @@
   <main id="main" class="main">
     @yield('content')
   </main><!-- End #main -->
+
+  @if(session('success'))
+      <script>
+         Swal.fire({
+          icon: 'success',
+          title: 'Success!',
+          text: 'Data berhasil ditambahkan.',
+          showConfirmButton: false,
+          timer: 2000
+         });
+      </script>
+  @endif
+
 
   <!-- Vendor JS Files -->
   <script src="{{ asset('assets2/vendor/apexcharts/apexcharts.min.js') }}" ></script>

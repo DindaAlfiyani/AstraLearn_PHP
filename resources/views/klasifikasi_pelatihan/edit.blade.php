@@ -40,4 +40,11 @@
     </div>
 </div>
 
+<!-- Script SweetAlert -->
+@if(session('update'))
+    <div class="alert alert-success">
+        {{ session('update') }}
+    </div>
+@endif
+
 @endsection
