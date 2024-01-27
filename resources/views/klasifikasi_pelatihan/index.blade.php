@@ -77,7 +77,7 @@
                         </tbody>
                     </table>
 
-                     @if(session('success'))
+                                @if(session('success'))
                                 <script>
                                     Swal.fire({
                                         icon: 'success',
